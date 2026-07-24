@@ -30,3 +30,11 @@ class CNNModel:
         if self.model is None:
             raise RuntimeError("Call CNNModel.load(path) before predict().")
         return self.model.predict(img_array, verbose=0)[0]
+    
+    def predict(self, img_array):
+        if self.model is None:
+            raise RuntimeError("Call CNNModel.load(path) before predict().")
+        log.info("Starting prediction. Input shape=%s", img_array.shape)
+        output = self.model(img_array, training=False)
+        log.info("Prediction completed.")
+        return output.numpy()[0]

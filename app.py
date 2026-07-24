@@ -9,7 +9,18 @@ Supervisor: Prof. Jonas Niyitegeka
 Institution: Kigali Independent University ULK | Data Science 2025/2026
 """
 
-import os, time, logging
+import os
+
+# Reduce TensorFlow memory usage on Render
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
+import tensorflow as tf
+
+tf.config.threading.set_intra_op_parallelism_threads(1)
+tf.config.threading.set_inter_op_parallelism_threads(1)
+
+import time, logging
+
 from flask import Flask, render_template, request, jsonify, url_for
 from werkzeug.utils import secure_filename
 
